@@ -1,0 +1,102 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.ovirt.engine.core</groupId>
+    <artifactId>manager-modules</artifactId>
+    <version>3.2.0</version>
+  </parent>
+
+  <artifactId>common</artifactId>
+  <packaging>jar</packaging>
+
+  <name>Common Code</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>${engine.groupId}</groupId>
+      <artifactId>compat</artifactId>
+      <version>${engine.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.spec.javax.ejb</groupId>
+      <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+    </dependency>
+     <dependency>
+       <groupId>org.codehaus.jackson</groupId>
+       <artifactId>jackson-mapper-asl</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>${slf4j-jdk14.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!--
+
+           The enforcer plugin is used to ban us from using artifacts that will fail
+           the Frontend's gwt compilation.
+
+      -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.1.1</version>
+        <executions>
+          <execution>
+            <id>enforce-banned-dependencies</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <rules>
+            <bannedDependencies>
+              <excludes>
+                <exclude>commons-lang</exclude>
+              </excludes>
+            </bannedDependencies>
+          </rules>
+          <fail>true</fail>
+        </configuration>
+      </plugin>
+
+      <!-- Create the JBoss module: -->
+      <plugin>
+        <groupId>org.ovirt.engine</groupId>
+        <artifactId>jboss-modules-maven-plugin</artifactId>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>

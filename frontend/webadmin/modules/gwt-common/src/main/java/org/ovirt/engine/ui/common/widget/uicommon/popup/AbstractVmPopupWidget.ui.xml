@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:d="urn:import:org.ovirt.engine.ui.common.widget.dialog"
+             xmlns:e="urn:import:org.ovirt.engine.ui.common.widget.editor"
+             xmlns:t="urn:import:org.ovirt.engine.ui.common.widget.dialog.tab"
+             xmlns:s="urn:import:org.ovirt.engine.ui.common.widget.uicommon.storage"
+             xmlns:k="urn:import:org.ovirt.engine.ui.common.widget.form.key_value">
+
+    <ui:with field='constants' type='org.ovirt.engine.ui.common.CommonApplicationConstants'/>
+
+    <ui:style type="org.ovirt.engine.ui.common.widget.uicommon.popup.AbstractVmPopupWidget.Style">
+		.generalTabTopDecorator {
+			background-color: #D3D3D3;
+			margin-top: 4px;
+			margin-right: 3px;
+			margin-bottom: 20px;
+			padding-top: 6px;
+			padding-bottom: 6px;
+		}
+
+		.sectionPanel {
+			margin-bottom: 20px;
+		}
+
+		.sectionLabel {
+			font-weight: bold;
+			margin-top: 10px;
+			margin-bottom: 5px;
+		}
+
+		.sectionComment {
+			margin-top: 10px;
+			margin-left: 5px;
+			font-style: italic;
+		}
+
+		.checkboxWithLongLabel,.checkbox {
+			margin-left: -9px;
+		}
+
+		.checkboxWithLongLabel label {
+			margin-left: 26px;
+			margin-top: -26px;
+			display: block;
+			line-height: 20px;
+		}
+
+		.longCheckboxContent {
+			width: 90%;
+		}
+
+		.provisioningEditor {
+			padding-right: 25px;
+		}
+
+		.provisioningEditorContent  {
+			display: none;
+		}
+
+		.provisioningRadioContent  {
+			padding-top: 3px;
+			width: 100%;
+		}
+
+		.disksAllocation {
+			padding-left: 5px;
+			padding-top: 10px;
+		}
+
+		.disksAllocationPanel {
+			width: 490px;
+			padding-top: 5px;
+			padding-bottom: 10px;
+		}
+
+        .textBox {
+            width: 30px;
+            float: right;
+        }
+
+        .numOfVmsLabel {
+            margin-left: 5px;
+            color: #333333;
+        }
+
+        .assignedVmsLabel {
+            margin-left: 8px;
+        }
+
+        .prestartedHintLabel {
+            font-size: 7pt;
+            color: gray;
+            text-align: right;
+        }
+
+		.radioButton {
+
+		}
+
+		.radioButtonSpecificHost {
+            margin-left: 5px;
+		}
+
+		.label {
+			width: 350px;
+		}
+
+        .labelDisabled {
+            color: gray;
+        }
+
+		.runHostPanel {
+
+		}
+
+		.attachCdPanel {
+			width: 100%;
+		}
+
+        .cdAttachedLabelWidth {
+            width: 30px;
+        }
+
+		.hostRunMigrationOptions {
+			margin-left: 6px;
+		}
+
+		.warningMessageLabel {
+			color: #CD2127;
+			position: absolute;
+			bottom: 10px;
+		}
+
+		.explanationLabel {
+			font-style: italic;
+			margin-left: 40px;
+			margin-bottom: 10px;
+			width: 300px;
+		}
+
+		.cpuPinningStyle {
+		}
+
+		.expanderContent,.generalExpanderContent {
+			padding-left: 10px;
+		}
+		
+		.expanderContent {
+			float: left;
+		}
+
+		.warningLabel {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .poolEditVms {
+			line-height: 30px;
+			padding: 0 5px;
+			padding-bottom: 35px;
+        }
+        
+        .prestartedVmsEditorContent {
+        	width: 230px;
+        }
+        
+        .prestartedVmsEditor {
+        	float: right;
+        	width: 230px;
+        }
+        
+        .editPrestartedVmsEditor {
+        	float: left;
+        	padding-right: 10px;
+        }
+        
+        .prestartedVmsIcon {
+        	float: left;
+        	padding-top: 5px;
+            padding-left: 2px;
+        }
+        
+        .prestartedLabelWithHelp {
+        	float: left;
+        	width: 251px;
+        }
+
+        .increasePrestartedLabel {
+        	float: left;
+        	width: 251px;
+        }
+        
+        .eidtPrestartedVms {
+        	float: left;
+        	width: 230px;
+        }
+        
+        .eidtIncreaseVms {
+        	float: left;
+        	width: 230px;
+        }
+        
+        .prestartedLabel {
+        	float: left;
+        	color: #333333;
+        }
+        
+        .increaseVmsInPoolVms {
+        	float: left;
+        }
+        
+	</ui:style>
+
+	<t:DialogTabPanel width="100%" height="100%">
+		<t:tab>
+			<t:DialogTab ui:field="generalTab">
+				<t:content>
+					<g:FlowPanel>
+						<g:FlowPanel addStyleNames="{style.generalTabTopDecorator}">
+							<e:ListModelListBoxEditor ui:field="dataCenterEditor" />
+							<e:ListModelListBoxEditor ui:field="clusterEditor" />
+							<e:ListModelListBoxEditor ui:field="quotaEditor" />
+						</g:FlowPanel>
+						<g:FlowPanel addStyleNames="{style.sectionPanel}">
+							<e:EntityModelTextBoxEditor ui:field="nameEditor" />
+							<e:EntityModelTextBoxEditor ui:field="descriptionEditor" />
+
+<!-- 						New VM Pool							 -->
+							<e:EntityModelTextBoxEditor ui:field="numOfVmsEditor" />
+                            <g:FlowPanel ui:field="newPoolEditVmsPanel" addStyleNames="{style.poolEditVms}">
+                            	<g:FlowPanel addStyleNames="{style.prestartedLabelWithHelp}">
+									<g:Label ui:field="prestartedLabel" addStyleNames="{style.prestartedLabel}" />
+									<d:InfoIcon ui:field="newPoolPrestartedVmsIcon" addStyleNames="{style.prestartedVmsIcon}" />
+								</g:FlowPanel>
+								<e:EntityModelTextBoxOnlyEditor ui:field="prestartedVmsEditor" addStyleNames="{style.prestartedVmsEditor}" contentWidgetStyleName="{style.prestartedVmsEditorContent}" />
+                            </g:FlowPanel>
+                            
+<!--                             Edit VM Pool -->
+                            <g:FlowPanel addStyleNames="{style.poolEditVms}" ui:field="editPoolEditVmsPanel">
+								<g:FlowPanel addStyleNames="{style.prestartedLabelWithHelp}">
+									<g:Label ui:field="editPrestartedVmsLabel" addStyleNames="{style.prestartedLabel}" />
+									<d:InfoIcon ui:field="editPoolPrestartedVmsIcon" addStyleNames="{style.prestartedVmsIcon}" />
+								</g:FlowPanel>
+								<g:FlowPanel addStyleNames="{style.eidtPrestartedVms}">
+									<e:EntityModelTextBoxOnlyEditor ui:field="editPrestartedVmsEditor" addStyleNames="{style.editPrestartedVmsEditor}" contentWidgetStyleName="{style.textBox}" />
+									<g:ValueLabel ui:field="outOfxInPool" />
+								</g:FlowPanel>
+                            </g:FlowPanel>
+                            
+                            <g:FlowPanel ui:field="editPoolIncraseNumOfVmsPanel" addStyleNames="{style.poolEditVms}">
+								<g:Label text="{constants.increaseNumberOfVMsInPoolBy}" addStyleNames="{style.increasePrestartedLabel}" />
+								<g:FlowPanel addStyleNames="{style.eidtIncreaseVms}">
+									<e:EntityModelTextBoxOnlyEditor ui:field="incraseNumOfVmsEditor" addStyleNames="{style.editPrestartedVmsEditor}" contentWidgetStyleName="{style.textBox}" />
+									<g:Label text="{constants.vms}" addStyleNames="{style.increaseVmsInPoolVms}" />
+								</g:FlowPanel>
+                            </g:FlowPanel>
+                            <e:ListModelListBoxEditor ui:field="templateEditor"/>
+                        </g:FlowPanel>
+                        <g:FlowPanel addStyleNames="{style.sectionPanel}">
+                            <e:EntityModelTextBoxEditor ui:field="memSizeEditor"/>
+                            <e:EntityModelTextBoxEditor ui:field="totalvCPUsEditor" />
+							<g:FlowPanel addStyleNames="{style.sectionPanel}">
+								<d:AdvancedParametersExpander ui:field="generalAdvancedParameterExpander"/>
+								<g:FlowPanel ui:field="generalAdvancedParameterExpanderContent" addStyleNames="{style.generalExpanderContent}">
+									<e:ListModelListBoxEditor ui:field="corePerSocketEditor" />
+									<e:ListModelListBoxEditor ui:field="numOfSocketsEditor" />
+								</g:FlowPanel>
+							</g:FlowPanel>
+						</g:FlowPanel>
+						<g:FlowPanel addStyleNames="{style.sectionPanel}">
+							<e:ListModelListBoxEditor ui:field="oSTypeEditor" />
+							<e:EntityModelCheckBoxEditor ui:field="isStatelessEditor" addStyleNames="{style.checkbox}" />
+							<e:EntityModelCheckBoxEditor ui:field="isDeleteProtectedEditor" addStyleNames="{style.checkbox}" />
+						</g:FlowPanel>
+						<g:FlowPanel addStyleNames="{style.sectionPanel}">
+							
+						</g:FlowPanel>
+						<g:Label ui:field="generalWarningMessage" addStyleNames="{style.warningMessageLabel}" />
+					</g:FlowPanel>
+				</t:content>
+			</t:DialogTab>
+		</t:tab>
+		<t:tab>
+			<t:DialogTab ui:field="poolTab">
+				<t:content>
+					<g:FlowPanel>
+						<e:ListModelListBoxEditor ui:field="poolTypeEditor" />
+					</g:FlowPanel>
+				</t:content>
+			</t:DialogTab>
+		</t:tab>
+		<t:tab>
+		       <t:DialogTab ui:field="initialRunTab">
+				<t:content>
+					<g:FlowPanel>
+				      	        <g:Label addStyleNames="{style.sectionLabel}" text="{constants.initialRunGeneral}" />
+					        <e:ListModelListBoxEditor ui:field="timeZoneEditor" />
+						<g:Label addStyleNames="{style.sectionLabel}" text="{constants.initialRunWindows}" />
+						<e:ListModelListBoxEditor ui:field="domainEditor" />
+					</g:FlowPanel>
+				</t:content>
+			</t:DialogTab>
+		</t:tab>
+		<t:tab>
+			<t:DialogTab ui:field="consoleTab">
+				<t:content>
+					<g:FlowPanel>
+						<e:ListModelListBoxEditor ui:field="displayProtocolEditor" />
+						<e:ListModelListBoxEditor ui:field="usbSupportEditor" />
+						<e:ListModelListBoxEditor ui:field="numOfMonitorsEditor" />
+						<e:EntityModelCheckBoxEditor ui:field="isSmartcardEnabledEditor" addStyleNames="{style.checkbox}" />
+						<g:Label ui:field="nativeUsbWarningMessage" text="{constants.nativeUsbSupportWarning}" addStyleNames="{style.warningMessageLabel}" />
+						<d:AdvancedParametersExpander ui:field="expander"/>
+						<g:FlowPanel ui:field="expanderContent" addStyleNames="{style.expanderContent}">
+							<g:Label addStyleNames="{style.warningLabel}" text="{constants.advancedOptionsLabel}" />
+							<e:EntityModelCheckBoxEditor ui:field="allowConsoleReconnectEditor" addStyleNames="{style.checkboxWithLongLabel}" />
+						</g:FlowPanel>
+					</g:FlowPanel>
+				</t:content>
+			</t:DialogTab>
+		</t:tab>
+		<t:tab>
+			<t:DialogTab ui:field="hostTab">
+				<t:content>
+					<g:FlowPanel>
+						<g:Label addStyleNames="{style.sectionLabel}" text="{constants.runOnVmPopup}" />
+						<g:VerticalPanel addStyleNames="{style.runHostPanel}" verticalAlignment='ALIGN_MIDDLE'>
+							<e:EntityModelRadioButtonEditor width="150px" ui:field="isAutoAssignEditor"
+								addStyleNames="{style.radioButton}" />
+                            <g:HorizontalPanel verticalAlignment='ALIGN_MIDDLE'>
+                                <g:RadioButton ui:field="specificHost" addStyleNames="{style.radioButtonSpecificHost}" />
+                                <g:Label ui:field="specificHostLabel" text="{constants.specificVmPopup}" />
+                                <e:ListModelListBoxEditor ui:field="defaultHostEditor" />
+                            </g:HorizontalPanel>
+						</g:VerticalPanel>
+						<g:Label addStyleNames="{style.sectionLabel}" text="{constants.runMigrationOptionsVmPopup}" />
+						<g:VerticalPanel width="100%" addStyleNames="{style.hostRunMigrationOptions}">
+							<e:EntityModelCheckBoxEditor ui:field="runVMOnSpecificHostEditor" addStyleNames="{style.checkbox}" />
+							<e:EntityModelCheckBoxEditor ui:field="hostCpuEditor" addStyleNames="{style.checkbox}" />
+							<e:EntityModelCheckBoxEditor ui:field="dontMigrateVMEditor" addStyleNames="{style.checkboxWithLongLabel}" />
+						</g:VerticalPanel>
+						<e:EntityModelTextBoxEditor ui:field="cpuPinning" addStyleNames="{style.cpuPinningStyle}"/>
+						<g:HTML ui:field="cpuPinningLabel" addStyleNames="{style.explanationLabel},generalDialogComment" />
+					</g:FlowPanel>
+				</t:content>
+			</t:DialogTab>
+		</t:tab>
+		<t:tab>
+			<t:DialogTab ui:field="highAvailabilityTab">
+				<t:content>
+					<g:FlowPanel>
+						<g:FlowPanel addStyleNames="{style.sectionPanel}">
+							<e:EntityModelCheckBoxEditor ui:field="isHighlyAvailableEditor" addStyleNames="{style.checkbox}" />
+						</g:FlowPanel>
+						<g:FlowPanel addStyleNames="{style.sectionPanel}">
+							<g:Label addStyleNames="{style.sectionLabel}" text="{constants.priorForRunMigrationQueueVmPopup}" />
+							<e:EntityModelCellTable ui:field="priorityEditor" />
+						</g:FlowPanel>
+					</g:FlowPanel>
+				</t:content>
+			</t:DialogTab>
+		</t:tab>
+		<t:tab>
+			<t:DialogTab ui:field="resourceAllocationTab">
+				<t:content>
+					<g:FlowPanel>
+						<g:FlowPanel addStyleNames="{style.sectionPanel}">
+							<g:Label addStyleNames="{style.sectionLabel}" text="{constants.memAllocVmPopup}" />
+							<e:EntityModelTextBoxEditor ui:field="minAllocatedMemoryEditor" />
+						</g:FlowPanel>
+						<g:FlowPanel ui:field="storageAllocationPanel" addStyleNames="{style.sectionPanel}">
+							<g:HorizontalPanel>
+								<g:Label addStyleNames="{style.sectionLabel}" text="{constants.storageAllocVmPopup}" />
+								<g:Label addStyleNames="{style.sectionComment}" text="{constants.availOnlyTemplSelectedVmPopup}" />
+							</g:HorizontalPanel>
+							<g:HorizontalPanel ui:field="provisionSelectionPanel">
+								<e:ListModelListBoxEditor ui:field="provisioningEditor" addStyleNames="{style.provisioningEditor}" />
+								<g:VerticalPanel>
+									<e:EntityModelRadioButtonEditor ui:field="provisioningThinEditor"/>
+									<e:EntityModelRadioButtonEditor ui:field="provisioningCloneEditor"/>
+								</g:VerticalPanel>
+							</g:HorizontalPanel>
+							<g:FlowPanel ui:field="disksAllocationPanel">
+							<g:Label ui:field="disksAllocationLabel" text="{constants.disksAllocation}"  addStyleNames="{style.disksAllocation}" visible="false" />
+								<g:VerticalPanel>
+									<s:DisksAllocationView ui:field="disksAllocationView" listHeight="170px" listWidth="490px" showVolumeType="true" addStyleNames="{style.disksAllocationPanel}" />
+								</g:VerticalPanel>
+							</g:FlowPanel>
+						</g:FlowPanel>
+					</g:FlowPanel>
+				</t:content>
+			</t:DialogTab>
+		</t:tab>
+		<t:tab>
+			<t:DialogTab ui:field="bootOptionsTab">
+				<t:content>
+					<g:FlowPanel>
+						<g:FlowPanel addStyleNames="{style.sectionPanel}">
+							<g:Label addStyleNames="{style.sectionLabel}" text="{constants.bootSequenceVmPopup}" />
+							<e:ListModelListBoxEditor ui:field="firstBootDeviceEditor" />
+							<e:ListModelListBoxEditor ui:field="secondBootDeviceEditor" />
+							<g:HorizontalPanel addStyleNames="{style.attachCdPanel}" verticalAlignment="ALIGN_MIDDLE">
+								<e:EntityModelCheckBoxEditor label="{constants.attachCdVmPopup}" ui:field="cdAttachedEditor" />
+								<e:ListModelListBoxEditor ui:field="cdImageEditor" />
+							</g:HorizontalPanel>
+						</g:FlowPanel>
+						<g:FlowPanel ui:field="linuxBootOptionsPanel" addStyleNames="{style.sectionPanel}">
+							<g:Label addStyleNames="{style.sectionLabel}" text="{constants.linuxBootOptionsVmPopup}" />
+							<e:EntityModelTextBoxEditor ui:field="kernel_pathEditor" />
+							<e:EntityModelTextBoxEditor ui:field="initrd_pathEditor" />
+							<e:EntityModelTextBoxEditor ui:field="kernel_parametersEditor" />
+						</g:FlowPanel>
+					</g:FlowPanel>
+				</t:content>
+			</t:DialogTab>
+		</t:tab>
+		<t:tab>
+			<t:DialogTab ui:field="customPropertiesTab">
+				<t:content>
+					<g:FlowPanel>
+                        <k:KeyValueWidget ui:field="customPropertiesSheetEditor"/>
+					</g:FlowPanel>
+				</t:content>
+			</t:DialogTab>
+		</t:tab>
+	</t:DialogTabPanel>
+
+</ui:UiBinder>

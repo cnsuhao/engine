@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:e="urn:import:org.ovirt.engine.ui.common.widget.editor" xmlns:w="urn:import:org.ovirt.engine.ui.common.widget.uicommon.storage">
+
+	<ui:style  type="org.ovirt.engine.ui.common.widget.uicommon.popup.vm.VmMakeTemplatePopupWidget.WidgetStyle">
+		.content {
+			
+		}
+		
+		.editorLabel {
+			width: 360px;
+		}
+
+		.errorMessageLabel {
+			color: #CD2127;
+			position: absolute;
+			bottom: 10px;
+		}
+		
+		.isTemplatePublicEditor {
+			position: absolute;
+			bottom: 30px;
+		}
+		
+		.disksAllocationPanel {
+			width: 100%;
+			float: right;
+		}
+		
+		.disksAllocationLabel {
+			padding-left: 5px;
+			padding-bottom: 5px;
+			padding-top: 10px;
+		}
+	</ui:style>
+
+	<g:FlowPanel>
+		<e:EntityModelTextBoxEditor ui:field="nameEditor" />
+		<e:EntityModelTextBoxEditor ui:field="descriptionEditor" />
+		<e:ListModelListBoxEditor ui:field="clusterEditor" />
+		<e:ListModelListBoxEditor ui:field="quotaEditor" />
+		<g:Label ui:field="disksAllocationLabel" addStyleNames="{style.disksAllocationLabel}" />
+		<w:DisksAllocationView ui:field="disksAllocationView" listHeight="170px" listWidth="445px" addStyleNames="{style.disksAllocationPanel}" />			
+		<g:VerticalPanel>
+			<e:EntityModelCheckBoxEditor ui:field="isTemplatePublicEditor" addStyleNames="{style.isTemplatePublicEditor}" />
+			<g:Label ui:field="message" addStyleNames="{style.errorMessageLabel}" />
+		</g:VerticalPanel>
+	</g:FlowPanel>
+
+</ui:UiBinder>
